@@ -4,36 +4,65 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-### Variables
-#
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
-# Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
-# Your preferred terminal emulator
-set $term alacritty
-# Your preferred application launcher
-set $dmenu 'wofi --show drun --allow-images'
-set $menu 'wofi --show run --allow-images'
+### Window rules
+    for_window [instance="Godot_Editor"] floating enable
+    for_window [instance="Godot_Engine"] floating enable
+    for_window [title="- Godot Engine"] floating disable
 
-set $browser firefox
+### Variables
+    # Logo key. Use Mod1 for Alt.
+    set $mod Mod4
+
+    # Home row direction keys, like vim
+    set $left h
+    set $down j
+    set $up k
+    set $right l
+
+    # Your preferred terminal emulator
+    set $term ghostty
+
+    # Your preferred application launcher
+    set $dmenu 'wofi --show drun --allow-images'
+    set $menu 'wofi --show run --allow-images'
+
+    set $browser firefox
+
+    # Display vars
+    set $disp1 "DP-2"
+    set $disp2 "DP-1"
 
 ### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg /home/andreas/Pictures/pixel-limgrave-dark.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
+    # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+    # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+    output $disp1 bg ./images/eldenring-uw.png fill
+    output $disp2 bg ./images/hollowknight.jpg fill
+   
+    # Example configuration:
+    #
+    #   output HDMI-A-1 resolution 1920x1080 position 1920,0
+    #
+    # You can get the names of your outputs by running: swaymsg -t get_outputs
+    output $disp1 resolution 3440x1440 pos 0 0
+    output $disp2 resolution 1920x1200 pos 760 -1200
+    output HDMI-A-2 resolution 2560x1440 position 1920,0
 
-output HDMI-A-2 resolution 2560x1440 position 1920,0
+    workspace 1 output $disp1
+    workspace 2 output $disp1
+    workspace 3 output $disp2
+    workspace 4 output $disp2
+
+### Input
+    input "type:keyboard" {
+        xkb_layout se
+    }
+
+    input "type:touchpad" {
+        dwt enabled
+        dwtp enabled
+        tap enabled
+        tap_button_map lrm
+    }
 
 ### Idle configuration
 #
@@ -61,21 +90,8 @@ output HDMI-A-2 resolution 2560x1440 position 1920,0
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
-input "type:keyboard" {
-    xkb_layout se
-}
-
-input "type:touchpad" {
-    dwt enabled
-    dwtp enabled
-    tap enabled
-    tap_button_map lrm
-}
-
 ### Key bindings
-#
-# Basics:
-#
+### Basics
     # Start a terminal
     bindsym $mod+Return exec $term
 
@@ -102,9 +118,8 @@ input "type:touchpad" {
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-#
-# Moving around:
-#
+
+### Moving around
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
@@ -126,9 +141,8 @@ input "type:touchpad" {
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
-#
-# Workspaces:
-#
+
+### Workspaces
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -153,9 +167,8 @@ input "type:touchpad" {
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-#
-# Layout stuff:
-#
+
+### Layout stuff
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
@@ -178,9 +191,8 @@ input "type:touchpad" {
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
-#
-# Scratchpad:
-#
+
+### Scratchpad
     # Sway has a "scratchpad", which is a bag of holding for windows.
     # You can send windows there and get them back later.
 
@@ -190,9 +202,9 @@ input "type:touchpad" {
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
+
+### Resizing containers:
+bindsym $mod+r mode "resize"
 set $resize_amount 100px
 mode "resize" {
     # left will shrink the containers width
@@ -214,10 +226,8 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
-#
-# Utilities:
-#
+
+### Utilities:
     # Special keys to adjust volume via PulseAudio
     bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
     # bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
@@ -232,24 +242,24 @@ bindsym $mod+r mode "resize"
     bindsym Print exec 'grim - | wl-copy'
     bindsym Shift+Print exec 'grim -g "$(slurp)" - | wl-copy'
 
-#
-# Status Bar:
-#
+### Status Bar
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     swaybar_command waybar
 }
 
-default_border pixel 2
-# gaps inner 4
-# gaps outer 4
-set $border_focused #C45508
-client.focused $border_focused $border_focused $border_focused $border_focused
+### Border style
+    default_border pixel 2
+    # gaps inner 4
+    # gaps outer 4
+    set $border_focused #C45508
+    client.focused $border_focused $border_focused $border_focused $border_focused
 
-# SwayFX
-# corner_radius 6
+### SwayFX
+    # corner_radius 6
 
-# dependent on autotiling py script
-exec_always autotiling
+### Applications
+    exec_always ../scripts/autotiling
+    # exec openrgb --startminimized -p default
 
 include /etc/sway/config.d/*
