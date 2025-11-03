@@ -31,3 +31,6 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
+
+-- Set working dir to the open buffer dir
+vim.fn.chdir(vim.fn.expand "%:p:h")
