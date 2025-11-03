@@ -32,5 +32,9 @@ vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
 
+vim.o.winborder = 'rounded'
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+
 -- Set working dir to the open buffer dir
 vim.fn.chdir(vim.fn.expand "%:p:h")
