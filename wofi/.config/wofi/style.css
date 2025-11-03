@@ -1,0 +1,16 @@
+window {
+    border-radius: 4px;
+    background-color: transparent;
+}
+
+#outer-box {
+    background-color: #16161D;
+    border: solid 2px #8C8C8F;
+    padding: 8px;
+    border-radius: 8px;
+    opacity: 1.0;
+}
+
+#entry {
+    margin-top: 8px;
+}
