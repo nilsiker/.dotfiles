@@ -15,9 +15,9 @@ vim.diagnostic.config({
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>dp', function()
-    vim.diagnostic.goto_prev({ count = 1, float = true })
+    vim.diagnostic.jump({ count = -1, float = true })
 end)
 vim.keymap.set('n', '<leader>dn', function()
-    vim.diagnostic.goto_next({ count = -1, float = true })
+    vim.diagnostic.jump({ count = 1, float = true })
 end)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
