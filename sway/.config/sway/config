@@ -44,8 +44,8 @@
     #   output HDMI-A-1 resolution 1920x1080 position 1920,0
     #
     # You can get the names of your outputs by running: swaymsg -t get_outputs
-    output $disp1 resolution 3440x1440 pos 0 0
-    output $disp2 resolution 1920x1200 pos 760 -1200
+    output $disp1 resolution 3440x1440 pos 0 1200
+    output $disp2 resolution 1920x1200 pos 760 0
     output HDMI-A-2 resolution 2560x1440 position 1920,0
 
     workspace 1 output $disp1
@@ -228,6 +228,14 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 
+bindsym Ctrl+1 mode zoom
+mode zoom {
+   bindsym 1 output DP-2 scale 1
+   bindsym 2 output DP-2 scale 2
+   bindsym Return mode "default"
+   bindsym Escape mode "default"
+}
+
 ### Utilities:
     # Special keys to adjust volume via PulseAudio
     bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
@@ -236,17 +244,22 @@ mode "resize" {
     bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
     bindsym XF86AudioLowerVolume exec amixer set Master 5%-
     bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    bindsym --locked XF86AudioPlay exec playerctl play-pause
+    bindsym --locked XF86AudioNext exec playerctl next
+    bindsym --locked XF86AudioPrev exec playerctl previous
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
     bindsym Print exec 'grim - | wl-copy'
     bindsym Shift+Print exec 'grim -g "$(slurp)" - | wl-copy'
+    bindsym Ctrl+6 exec 'grim -g "$(slurp)" - | wl-copy'
 
 ### Status Bar
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     swaybar_command waybar
+    # mode hide
 }
 
 ### Border style
@@ -260,7 +273,7 @@ bar {
     # corner_radius 6
 
 ### Applications
-    exec_always ../scripts/autotiling
-    # exec openrgb --startminimized -p default
+    exec_always ~/.config/sway/scripts/autotiling
+    exec openrgb -p Default --startminimized
 
 include /etc/sway/config.d/*

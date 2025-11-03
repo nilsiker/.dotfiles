@@ -4,21 +4,20 @@
 }
 
 window#waybar {
-    background-color: #16161D; /*rgba(43, 48, 59, 1.0);*/
     /*border-bottom: 3px solid rgba(100, 114, 125, 0.5);*/
-    color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
+    background-color: transparent;
 }
 
 window#waybar.hidden {
     opacity: 0.2;
 }
 
-/*
 window#waybar.empty {
     background-color: transparent;
 }
+/*
 window#waybar.solo {
     background-color: #FFFFFF;
 }
@@ -32,6 +31,7 @@ window#waybar.chromium {
     background-color: #000000;
     border: none;
 }
+
 
 button {
     /* Use box-shadow instead of border so the text isn't offset */
@@ -93,31 +93,22 @@ button:hover {
 #scratchpad,
 #power-profiles-daemon,
 #mpd {
-    padding: 4px 6px;
     margin:  4px 0;
     border-radius: 4px;
-    color: #ffffff;
+    padding: 4px 6px;
 }
 
-#window,
-#workspaces {
-    margin: 0 4px;
-
+.modules-left  {
+    margin-left: 4px;
+    padding: 4px 6px;
 }
 
-/* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
+.modules-center {
+    min-width: 200px;
 }
 
-/* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
-
-}
-
-#clock {
-    background-color: #64727D;
+.modules-right {
+    margin-right: 4px;
 }
 
 #battery {
@@ -238,7 +229,7 @@ label:focus {
 }
 
 #tray {
-    background-color: #2980b9;
+ /*   background-color: #2980b9; */
 }
 
 #tray > .passive {

@@ -8,3 +8,5 @@ fi
 . "$HOME/.cargo/env"
 
 alias v=nvim
+
+swaynag -m "hello from bash_profile"
