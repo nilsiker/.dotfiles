@@ -38,3 +38,10 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
 
 -- Set working dir to the open buffer dir
 vim.fn.chdir(vim.fn.expand "%:p:h")
+
+vim.fn.sign_define('DapBreakpoint', {
+    text = '●',
+    texthl = 'DiagnosticSignError',
+    numhl =
+    'DiagnosticSignError'
+})

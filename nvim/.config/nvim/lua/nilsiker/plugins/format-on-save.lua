@@ -1,9 +1,12 @@
 return {
     "elentok/format-on-save.nvim",
-    config = function ()
-
+    config = function()
         local format_on_save = require("format-on-save")
         local formatters = require("format-on-save.formatters")
+
+
+        local create = require("format-on-save.formatters.create")
+        local gdformat = create.shell({ cmd = { "gdformat", '%' } })
 
         format_on_save.setup({
             exclude_path_patterns = {
@@ -30,6 +33,5 @@ return {
                 yaml = formatters.lsp,
             }
         })
-
     end
 }
